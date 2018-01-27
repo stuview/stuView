@@ -1,0 +1,80 @@
+<header id="header" data-current-skin={{mactrl.currentSkin}} data-ng-include="'views/header.html'" data-ng-controller="headerCtrl as hctrl"></header>
+
+<section id="main">
+    <aside id="sidebar" data-ng-include="'views/instructor/instructor-sidebar-left.html'" data-ng-class="{ 'toggled': mactrl.sidebarToggle.left === true }"></aside>
+
+    <section id="content">
+
+        <div class="container">
+
+            <div class="block-header">
+                <h2>Create An Interview</h2>
+            </div>
+
+            <div class="row" ng-controller="instructorCreateInterviewsCtrl">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header bgm-indigo">
+                            <div class="clearfix">
+                                <h2>Create Interview</h2>
+                            </div>
+                        </div>
+
+                        <div class="card-body card-padding">
+                            <form role="form" name="interviewForm">
+                                <div class="form-group fg-line">
+                                    <label for="interviewTitle">Interview Name</label>
+                                    <input type="text" class="form-control input-sm" id="interviewTitle" placeholder="Enter name" ng-model="interview.title" name="title" required ng-minlength="3">
+                                </div>
+                                <span class="form-group fg-line zmdi zmdi-alert-triangle" style="color: red" ng-if="interviewForm.title.$invalid && interviewForm.title.$touched"> Interview name not long enough</span>
+
+                                <div class="form-group fg-line">
+                                    <label for="interviewDescription">Description</label>
+                                    <textarea type="text" rows="4" class="form-control input-sm" id="interviewDescription"
+                                           placeholder="Interview Description" ng-model="interview.description" required ng-minlength="3" name="description"></textarea>
+                                </div>
+                                <span class="form-group fg-line zmdi zmdi-alert-triangle input-sm" style="color: red" ng-if="interviewForm.description.$invalid && interviewForm.description.$touched"> Interview description not long enough</span>
+
+                                <div class="form-group fg-line">
+                                    <label for="interviewTime">Time</label>
+                                    <input type="number" class="form-control input-sm" id="interviewTime"
+                                              placeholder="Number of minutes" min="1" ng-model="interview.time_limit" required name="time"/>
+
+                                </div>
+                                <span class="form-group fg-line zmdi zmdi-alert-triangle input-sm" style="color: red" ng-if="interviewForm.time.$invalid && interviewForm.time.$touched"> Need an integer value larger than 0!</span>
+
+
+                                <div class="form-group fg-line">
+                                    <label for="type">Interview Type: Reviewed or Practice</label>
+                                    <br>
+                                    <select id="type" ng-model="interviewType" ng-init="interviewType='Reviewed'">
+                                        <option value="Reviewed">Reviewed and Uploaded</option>
+                                        <option value="Practice">Practice</option>
+                                    </select>
+                                </div>
+
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="" ng-model="interview.guidelines" required name="guide">
+                                        <i class="input-helper"></i>
+                                        This interview follows the EWU ACM computer science interview guidelines <a href="http://www.google.com" target="_blank">ACM Interview Guidelines</a> <span style="color: red" ng-hide="interviewForm.guide.$valid">Required</span>
+                                    </label>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <button type="submit" data-ui-sref="create-question" class="btn btn-success btn-sm m-t-10" ng-if="interviewForm.title.$valid && interviewForm.description.$valid && interviewForm.time.$valid && interviewForm.guide.$valid" data-ng-click="submitInterview()">ADD Questions</button>
+                                    </div>
+                                </div>
+                                <!--practice-->
+                            </form>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+
+<footer id="footer" data-ng-include="'views/footer.html'"></footer>

@@ -1,0 +1,9 @@
+logs/*
+!.gitkeep
+vendor/
+tmp
+.DS_Store
+.idea
+StuView/public/test/prayforhaitiblank_720p_mpg.mpg
+modules.xml
+StuView/storage/logs/laravel.log

@@ -1,0 +1,48 @@
+<div class="sidebar-inner c-overflow">
+    <div class="profile-menu" ng-controller="instructorSideBar">
+        <a href="" toggle-submenu>
+            <div class="profile-pic">
+                <img src="img/profile-pics/4.jpg" alt="">
+            </div>
+
+            <div class="profile-info">
+                {{ fname }} {{ lname }}
+                <i class="zmdi zmdi-caret-down"></i>
+            </div>
+        </a>
+
+        <ul class="main-menu">
+            <li>
+                <a href="" ng-click="logout()"><i class="zmdi zmdi-time-restore"></i> Logout</a>
+            </li>
+        </ul>
+    </div>
+
+    <ul class="main-menu">
+
+        <li data-ui-sref-active="active">
+            <a data-ui-sref="instructor-home" data-ng-click="mactrl.sidebarStat($event)"><i class="zmdi zmdi-home"></i> Home</a>
+        </li>
+
+        <li data-ui-sref-active="active">
+            <a data-ui-sref="create-interview" data-ng-click="mactrl.sidebarStat($event)"><i class="fa fa-comments"></i> Create Interview</a>
+        </li>
+
+        <li data-ui-sref-active="active">
+            <a data-ui-sref="manage-interviews" data-ng-click="mactrl.sidebarStat($event)"><i class="fa fa-list-alt"></i> Manage Interviews</a>
+        </li>
+
+        <li data-ui-sref-active="active">
+            <a data-ui-sref="instructor-feedback" data-ng-click="mactrl.sidebarStat($event)"><i class="fa fa-pencil-square-o"></i> Feedback</a>
+        </li>
+
+        <!--<li data-ui-sref-active="active">-->
+            <!--<a data-ui-sref="instructor-reviewPresentation" data-ng-click="mactrl.sidebarStat($event)" data-ng-class="{ 'active toggled': mactrl.$state.includes('rec')}"><i class="zmdi zmdi-videocam"></i> Review Presentation</a>-->
+        <!--</li>-->
+
+        <li data-ui-sref-active="active">
+            <a data-ui-sref="instructor-groups" data-ng-click="mactrl.sidebarStat($event)"><i class="zmdi zmdi-accounts"></i> Groups</a>
+        </li>
+
+    </ul>
+</div>

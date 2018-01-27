@@ -1,0 +1,260 @@
+<header id="header" data-current-skin={{mactrl.currentSkin}} data-ng-include="'views/header.html'" data-ng-controller="headerCtrl as hctrl"></header>
+
+<section id="main">
+    <aside id="sidebar" data-ng-include="'views/instructor/instructor-sidebar-left.html'" data-ng-class="{ 'toggled': mactrl.sidebarToggle.left === true }"></aside>
+    <section id="content" ng-controller="manageinterviewsCtrl">
+
+        <div class="container" ng-init="getInstructorId()">
+
+            <div class="block-header">
+                <h2>Manage Interviews</h2>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6" ng-repeat="x in interviewsForManagement">
+                    <div class="card">
+                        <div class="card-header" ng-class="{'bgm-indigo': x.practice == 0, 'bgm-green': x.practice == 1}">
+                            <div class="clearfix">
+                                <h2 ng-if="!x.$edit">{{x.title}}<small>{{x.time_limit}} minutes</small></h2>
+                                <h2 ng-if="x.$edit">
+                                    <input class="form-control" type="text" ng-model="x.title"/>
+                                    <small>
+                                        <input type="number" style="color: #0a0a0a" ng-model="x.time_limit">
+                                    </small>
+                                </h2>
+                            </div>
+                            <ul class="actions" ng-if="!x.$edit">
+                                <li class="dropdown" uib-dropdown>
+                                    <a href="" uib-dropdown-toggle>
+                                        <i class="zmdi zmdi-more-vert"></i>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <li>
+                                            <a href="" ng-if="x.instructor_uname == currentInstructor" ng-click="x.$edit = true">Edit </a>
+                                        </li>
+                                        <li>
+                                            <a href="" ng-click="x.$assign = true; x.$unassign = false">Assign</a>
+                                        </li>
+                                        <li>
+                                            <a href="" ng-click="x.$unassign = true; x.$assign = false">Unassign</a>
+                                        </li>
+                                        <li>
+                                            <a href="" ng-if="x.instructor_uname == currentInstructor" ng-click="deleteInterview(x.interview_id)">Delete</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <div>
+                                <button ng-if="x.$edit" ng-click="x.$edit = false; updateInterview(x.title, x.description, x.interview_id, x.time_limit)" class="btn bgm-lightblue waves-effect"><i class="zmdi zmdi-check"></i></button>
+                                <button ng-if="x.$edit" ng-click="x.$edit = false;" class="btn bgm-red waves-effect"><i class="zmdi zmdi-close"></i></button>
+                            </div>
+
+                        </div>
+                        <div class="card-body card-padding">
+                            <textarea ng-if="!x.$edit" readonly style="border-color: white; width: 100%; resize: none;
+                            max-lines:1; overflow: hidden">{{x.description}}</textarea>
+                            <textarea ng-if="x.$edit" style="width: 100%; resize: none;
+                            max-lines:1; overflow: scroll" data-ng-model="x.description"></textarea>
+
+                            <!--Assign Interview-->
+
+                            <div ng-if="x.$assign" ng-init="getGroups(); getStudents()">
+                                <div class="row">
+                                    <button class="btn btn-info col-md-4" ng-click="x.$assignGroup = true; x.$assignStudents = false ">Assign Groups</button>
+                                    <span class="col-md-4"></span>
+                                    <button class="btn btn-info col-md-4" ng-click="x.$assignStudents= true; x.$assignGroup = false">Assign Student</button>
+                                </div>
+                                <br>
+
+                                <!--Assign Group-->
+                                <div ng-if="x.$assignGroup" data-ng-controller="DatepickerDemoCtrl">
+                                    <p class="f-500 c-black m-b-15">Assign Group</p>
+
+                                    <div class="col-md-6">
+                                        <select data-placeholder="Select a group ..." class="form-control w-100" data-ng-model="assignGroupVal">
+                                            <option disabled selected value> -- select a group -- </option>
+                                            <option ng-repeat="g in allGroups" value="{{g.class_id}}">{{ g.group_title }}</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="date-picker input-group dp-red" ng-class="{ 'is-opened': opened3 == true }">
+                                            <span class="input-group-addon"><i class="zmdi zmdi-calendar ma-icon"></i></span>
+                                            <div class="fg-line" ng-class="{ 'fg-toggled': opened3 == true }">
+                                                <input ng-click="open($event, 'opened3')" type="text" class="form-control"
+                                                       uib-datepicker-popup="{{format}}" show-weeks="false" ng-model="groupDate"
+                                                       is-open="opened3" min-date="minDate" datepicker-options="dateOptions" ng-required="true" close-text="Close" placeholder="Select Date" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-success zmdi zmdi-check" ng-click="assignGroup(x.interview_id, assignGroupVal, groupDate); assignGroupVal=''; x.$assignGroup = false; x.$assign = false;"></button>
+                                    <button class="btn btn-danger zmdi zmdi-close" ng-click="x.$assignGroup = false; x.$assign = false; assignGroupVal=''"></button>
+                                    <br>
+                                </div>
+
+                                <!--Assign Student-->
+                                <div ng-if="x.$assignStudents" data-ng-controller="DatepickerDemoCtrl">
+                                    <p class="f-500 c-black m-b-15" >Assign Student</p>
+
+                                    <div class="col-md-6">
+                                        <select data-placeholder="Select a group ..." class="form-control w-100" data-ng-model="g.$assignStudentVal">
+                                            <option disabled selected value> -- select a student -- </option>
+                                            <option ng-repeat="g in allStudents" value="{{g.student_uname}}">{{ g.fname }} {{g.lname}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="date-picker input-group dp-red" ng-class="{ 'is-opened': opened3 == true }">
+                                            <span class="input-group-addon"><i class="zmdi zmdi-calendar ma-icon"></i></span>
+                                            <div class="fg-line" ng-class="{ 'fg-toggled': opened3 == true }">
+                                                <input ng-click="open($event, 'opened3')" type="text" class="form-control"
+                                                       uib-datepicker-popup="{{format}}" show-weeks="false" ng-model="studentDate"
+                                                       is-open="opened3" min-date="minDate" datepicker-options="dateOptions" ng-required="true" close-text="Close" placeholder="Select Date" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <button class="btn btn-success zmdi zmdi-check" ng-click="assignStudent(x.interview_id, g.$assignStudentVal, studentDate, currentInstructor); assignStudentVal=''; x.$assignStudents = false; x.$assign = false;"></button>
+                                    <button class="btn btn-danger zmdi zmdi-close" ng-click="x.$assignStudents = false; x.$assign = false; assignStudentVal=''"></button>
+                                    <br>
+                                </div>
+
+                                <br>
+                            </div>
+
+                            <div ng-if="x.$unassign">
+                                <div class="row">
+                                    <button class="btn btn-warning col-md-4" ng-click="x.$unassignGroup = true; x.$unassignStudents = false;">Unassign Group</button>
+                                    <span class="col-md-4"></span>
+                                    <button class="btn btn-warning col-md-4" ng-click="x.$unassignStudents= true; x.$unassignGroup = false;">Unassign Student</button>
+                                </div>
+                                <br>
+
+                                <!--Unassign Student-->
+                                <div ng-if="x.$unassignStudents" ng-init="getAssignedStudents(x.interview_id);">
+                                    <p class="f-500 c-black m-b-15">Unassign Student</p>
+
+                                    <div class="col-md-6">
+                                        <select data-placeholder="Select a group ..." class="form-control w-100" data-ng-model="unassignStudentVal">
+                                            <option disabled selected value> -- select a student -- </option>
+                                            <option ng-repeat="g in assignedStudents" value="{{ g.student_uname }}">{{ g.lname }}, {{ g.fname }}</option>
+                                        </select>
+                                    </div>
+
+                                    <button class="btn btn-success zmdi zmdi-check"
+								    ng-click="unassignStudent(x.interview_id, unassignStudentVal);
+                                            getAssignedStudents(x.interview_id);
+                                            unassignStudentVal='';
+                                            x.$unassignStudents=false;
+                                            x.$unassign=false">
+							 </button>
+                                    <button class="btn btn-danger zmdi zmdi-close"
+								    ng-click="x.$unassignStudents = false;
+								    x.$unassign = false;
+								    unassignStudentVal=''">
+							 </button>
+                                    <br>
+                                </div>
+
+                                <!--Unassign Group-->
+                                <div ng-if="x.$unassignGroup" ng-init="getAssignedGroups(x.interview_id)">
+                                    <p class="f-500 c-black m-b-15">Unassign Group</p>
+
+                                    <div class="col-md-6">
+                                        <select data-placeholder="Select a group ..." class="form-control w-100" data-ng-model="unassignGroupVal">
+                                            <option disabled selected value> -- select a group -- </option>
+                                            <option ng-repeat="g in assignedGroups" value="{{g.class_id}}">{{ g.group_title}}</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <button class="btn btn-success zmdi zmdi-check"
+								    ng-click="unassignGroup(x.interview_id, unassignGroupVal);
+								    getAssignedGroups(x.interview_id);
+								    getAssignedStudents(x.interview_id);
+								    x.$unassignGroup = false;
+								    x.$unassign = false;
+								    unassignGroupVal=''">
+							 </button>
+                                    <button class="btn btn-danger zmdi zmdi-close"
+								    ng-click="x.$unassignGroup = false;
+								    x.$unassign = false;
+								    unassignGroupVal=''">
+							 </button>
+                                    <br>
+                                </div>
+
+
+                                <br>
+                            </div>
+
+                            <!--Showing questions-->
+
+                            <div ng-click="x.$showQuestions = true" class="zmdi zmdi-long-arrow-down btn btn-default" ng-show="!x.$showQuestions"> Questions</div>
+                            <div ng-click="x.$showQuestions = false" class="zmdi zmdi-long-arrow-up btn btn-default" ng-show="x.$showQuestions"> Questions</div>
+                            <button class="zmdi btn btn-default" data-ui-sref="create-question" ng-if="x.instructor_uname == currentInstructor" ng-click="setInterviewInfo(x.interview_id)"> Add a Question</button>
+
+                            <hr ng-if="x.$showQuestions">
+
+                            <div ng-show="x.$showQuestions" ng-init="getQuestionsForInterview(x.interview_id)">
+                                    <div ng-repeat="question in questions[x.interview_id]">
+                                        <!--ng-init="getRubricForQuestion(question.question_id, $index)"-->
+                                        <span ng-if="!question.$edit" class="col-md-9">
+                                             {{$index + 1}}. {{question.question}}
+                                            <br>
+                                        </span>
+                                        <span ng-if="!question.$edit">
+                                            <button type="button" class="btn btn-default" ng-click="question.$rubricEdit = !question.$rubricEdit">
+                                                <i ng-if="!question.$rubricEdit " class="zmdi zmdi-long-arrow-down"></i>
+                                                <i ng-if="question.$rubricEdit " class="zmdi zmdi-long-arrow-up"></i>
+                                            </button>
+                                            <button type="button" ng-if="x.instructor_uname == currentInstructor" class="btn btn-default" ng-click="question.$edit = true"><i class="zmdi zmdi-edit"></i></button>
+                                            <button type="button" ng-if="x.instructor_uname == currentInstructor" class="btn btn-danger" ng-click="deleteQuestion(question.question_id, x.interview_id)"><i class="zmdi zmdi-close"></i></button>
+                                            <br>
+                                        </span>
+                                        <div ng-if="question.$rubricEdit" ng-init="getRubricForQuestion(question.question_id)">
+                                        <br>
+                                         <ul ng-if="question.$rubricEdit" class="clist clist-check" ng-repeat="criteria in rubric[question.question_id]">
+									   <span class="col-md-8" ng-if="!criteria.$edit">{{ criteria.criteria_description }}</span>
+									   <span class="col-md-8" ng-if="criteria.$edit"><input type="text" ng-model="criteria.criteria_description"></span>
+									   <span class="col-md-4" ng-if="x.instructor_uname == currentInstructor">
+										  <button type="button" ng-if="!criteria.$edit" class="btn btn-default" ng-click="criteria.$edit = true"><i class="zmdi zmdi-edit"></i></button>
+										  <button type="button" ng-if="!criteria.$edit" class="btn btn-danger" ng-click="deleteCriteria(criteria.criteria_id, question.question_id, question.$index)"><i class="zmdi zmdi-close"></i></button>
+										  <button type="button" ng-if="criteria.$edit" class="btn btn-success" ng-click="criteria.$edit = false; updateCriteria(criteria.criteria_id, criteria.criteria_description, question.question_id)"><i class="zmdi zmdi-check"></i></button>
+									   </span>
+                                        </ul>
+								<!-- Add new criteria to question -->
+								<ul ng-init="criteria.$addCriteria = false">
+									<span class="col-md-8">
+										<button type="button" ng-if="x.instructor_uname == currentInstructor" class="btn btn-success" ng-click="criteria.$addCriteria = true">
+											<i class="zmdi">+</i>
+										</button>
+									</span>
+									<span class="col-md-8" ng-if="criteria.$addCriteria">
+										<input type="text" ng-model="criteria.newCriteria">
+										<button type="button" class="btn btn-success" ng-click="criteria.$addCriteria = false; storeCriteria(rubricId, criteria.newCriteria); getRubricForQuestion(question.question_id)"><i class="zmdi zmdi-check"></i></button>
+										<button type="button" class="btn btn-danger" ng-click="criteria.$addCriteria = false"><i class="zmdi zmdi-close"></i></button>
+									</span>
+								</ul>
+                                        <div ng-if="question.$rubricEdit">
+                                            <br>
+                                        </div>
+                                        </div>
+                                        <span ng-if="question.$edit" class="col-md-9">
+                                             <input type="text" style="width: 100%" ng-model="question.question">
+                                            <br>
+                                        </span>
+                                        <span ng-if="question.$edit">
+                                            <button  type="button" class="btn btn-success" ng-click="question.$edit = false; updateQuestion(question.question_id, question.question)"><i class="zmdi zmdi-check"></i></button>
+                                            <br>
+                                        </span>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</section>
+
+<footer id="footer" data-ng-include="'views/footer.html'"></footer>

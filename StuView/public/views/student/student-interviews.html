@@ -1,0 +1,52 @@
+<header id="header" data-current-skin={{mactrl.currentSkin}} data-ng-include="'views/header.html'" data-ng-controller="headerCtrl as hctrl"></header>
+
+<section id="main">
+    <aside id="sidebar" data-ng-include="'views/student/student-sidebar-left.html'" data-ng-class="{ 'toggled': mactrl.sidebarToggle.left === true }"></aside>
+
+    <section id="content" ng-controller="studentinterviewsCtrl">
+        <div class="container">
+
+            <div class="block-header">
+                <h2>Interviews</h2>
+            </div>
+
+            <div class="card" ng-hide="dismissed">
+                <div class="bgm-gray">
+                    <div class="col-lg-12">
+                        <div class="alert alert-dismissable bgm-gray" style="color: #ffffff">
+                            <button type="button" class="close" ng-click="dismissed = true" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <i class="fa fa-info-circle"></i> <strong>IMPORTANT</strong>: Make sure you are ready before you select "Take interview". You will only have one chance to attempt this assignment, so be
+                                sure to take advantage of the provided practice interviews. Also, be certain that your attire and environment are interview friendly as well.
+                                For recommendations, please refer to our Interview Preparation Guide <button class="btn btn-link">HERE</button>.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6" ng-repeat="x in testData">
+                    <div class="card">
+                        <div class="card-header" ng-class="{'bgm-indigo': x.practice == 0, 'bgm-green': x.practice == 1}">
+                            <div class="clearfix">
+                                <h2>{{x.title}}<small>{{x.time_limit}} minutes</small></h2>
+                            </div>
+                        </div>
+                        <div class="card-body card-padding">
+                            <textarea readonly style="border-color: white; width: 100%; resize: none; max-lines:1; overflow: hidden">{{x.description}}</textarea>
+                            <div>
+                                <br>
+                                <button data-ui-sref="student-interviewsPrecheck" class="btn btn-success" ng-click="mactrl.sidebarStat($event); setInterviewInfo(x)">
+                                    <i class="zmdi zmdi-arrow-right"></i>Take Interview
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</section>
+
+<footer id="footer" data-ng-include="'views/footer.html'"></footer>

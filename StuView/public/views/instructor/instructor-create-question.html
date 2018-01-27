@@ -1,0 +1,72 @@
+<header id="header" data-current-skin={{mactrl.currentSkin}} data-ng-include="'views/header.html'" data-ng-controller="headerCtrl as hctrl"></header>
+
+<section id="main">
+    <aside id="sidebar" data-ng-include="'views/instructor/instructor-sidebar-left.html'" data-ng-class="{ 'toggled': mactrl.sidebarToggle.left === true }"></aside>
+
+    <section id="content">
+
+        <div class="container">
+
+            <div class="block-header">
+                <h2>Create Questions</h2>
+            </div>
+
+            <div class="row" ng-controller="instructorCreateQuestionCtrl">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header bgm-indigo">
+                            <div class="clearfix">
+                                <h2>Add Question {{ questionNumber }}</h2>
+                            </div>
+                        </div>
+
+                        <div class="card-body card-padding">
+                            <form role="form" name="questionForm">
+                                <div class="form-group fg-line">
+                                    <label for="Question">Question</label>
+                                    <textarea type="text" rows="4" class="form-control input-sm" id="Question"
+                                              placeholder="What would you like to ask?" ng-model="question" required ng-minlength="3" name="question"></textarea>
+                                </div>
+                                <span class="form-group fg-line zmdi zmdi-alert-triangle input-sm" style="color: red" ng-if="questionForm.question.$invalid && questionForm.question.$touched"> Question not long enough!</span>
+
+
+                                <div class="row form-group fg-line">Rubric for Question {{ questionNumber }}</div>
+
+                                <div class="form-group fg-line" ng-repeat="criteria in rubric">
+                                    <label for="criteria">Criteria {{$index + 1}}:</label>
+                                    {{ criteria }}
+                                </div>
+
+                                <div class="form-group fg-line" >
+                                    <label for="criteria">New Criteria</label>
+                                    <textarea type="text" rows="4" class="form-control input-sm" id="criteria"
+                                              placeholder="Scoring item" ng-model="interview.scoring" ng-required="rubric.length < 1" ng-minlength="3" name="criteria"></textarea>
+                                </div>
+
+                                <span class="form-group fg-line zmdi zmdi-alert-triangle input-sm" style="color: red" ng-if="questionForm.criteria.$invalid && questionForm.criteria.$touched"> Criteria not long enough!</span>
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <button type="submit" ng-show="questionForm.question.$valid && questionForm.criteria.$valid && questionForm.criteria.$viewValue"  ng-click="saveCriteria(interview.scoring); interview.scoring =''" class="btn btn-primary btn-sm m-t-10">ADD Criteria To this question</button>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <button type="submit" ng-show="questionForm.question.$valid && rubric.length > 0" ng-click="saveCriteria(interview.scoring); submitQuestion(); rubric = []; question = ''; interview.scoring =''" class="btn btn-success btn-sm m-t-10">ADD Questions</button>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button type="submit" data-ui-sref="manage-interviews" ng-show="(questionForm.question.$valid && rubric.length > 0)" class="btn btn-success btn-sm m-t-10" ng-click="saveCriteria(interview.scoring); submitQuestion()">Finish and Submit Interview</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+</section>
+
+<footer id="footer" data-ng-include="'views/footer.html'"></footer>

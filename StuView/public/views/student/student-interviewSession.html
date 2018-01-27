@@ -1,0 +1,106 @@
+<header id="header" data-current-skin={{mactrl.currentSkin}} data-ng-include="'views/header.html'" data-ng-controller="headerCtrl as hctrl"></header>
+
+<section id="main">
+    <aside id="sidebar" data-ng-include="'views/student/student-sidebar-left.html'" data-ng-class="{ 'toggled': mactrl.sidebarToggle.left === true }"></aside>
+
+    <section id="content">
+
+        <link rel="stylesheet" type="text/css" href="components/bootstrap/dist/css/bootstrap-theme.min.css">
+
+        <div class="container" ng-controller="interviewSessionCtrl" ng-init="init()">
+            <!-- === RECORDING === -->
+            <div ng-if="currentState.equals(states.recording)">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header" ng-class="{'bgm-indigo': !isPractice, 'bgm-green': isPractice}">
+                                <div class="clearfix inline-flex-container">
+                                    <div class="floating-box float-left">
+                                        <h2>
+                                            <p class="text-center">{{thisInterview.title}}</p>
+                                            <small>{{thisInterview.description}}</small>
+                                        </h2>
+                                    </div>
+
+                                    <div class="floating-box text-center float-right">
+                                        <h1 class="m-t-0 f-5em">{{countdownString}}</h1>
+
+                                        <div class="width-full">
+                                            <button ng-click="advanceState()" id="finishInterview" class="btn btn-large btn-danger btn-icon-text">
+                                                Submit Interview<i class="zmdi zmdi-check-all"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <button class="btn btn-danger btn-icon waves-effect waves-circle question-advance-left" ng-click="previousQuestion()" ng-disabled="questionIndex <= 0;"><i class="zmdi zmdi-arrow-back"></i></button>
+                                    <button class="btn btn-danger btn-icon waves-effect waves-circle question-advance-right" ng-click="nextQuestion()"    ng-disabled="questionIndex >= questions.length - 1;"><i class="zmdi zmdi-arrow-forward"></i></button>
+
+                                </div>
+                            </div>
+
+                            <div id="cardcontent" class="card-body card-padding">
+                                <div class="btn-demo">
+                                    <div id="elementToShare">
+                                        <div id="interviewQuestion" class="interview-question-prompt" ng-if="!finishedQuestions">
+                                            <h4>{{ questions[questionIndex].question}}</h4>
+                                        </div>
+                                        <div class="inline-flex-container">
+                                            <div class="interview-left-container">
+                                                <div class="interview-answerArea-{{questions.length == 0 ? 'disabled' : 'enabled'}}" id="answerArea" contenteditable="{{!finishedQuestions}}" ng-disabled="finishedQuestions"></div>
+                                                <div class="question-counter" ng-if="questions.length">{{questionIndex + 1}}/{{questions.length}}</div>
+                                            </div>
+                                            <div class="interview-webcam-container">
+                                                <video id="interviewRecording"></video>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- === ERROR === -->
+            <div id="getInterviewError" ng-if="currentState.equals(states.error)" ng-repeat="x in errors">
+                <div class="alert alert-danger">
+                    <strong>{{x}}</strong>
+                </div>
+            </div>
+
+            <div ng-if="[states.countdown.name, states.submitting.name, states.complete.name].includes(currentState.name)">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <div class="card z-depth-5" style="border-radius: 5px;">
+                        <div class="card-body" style="padding: 10px;">
+
+                            <!-- === COUNT DOWN === -->
+                            <div id="state_countdown" class="text-center" ng-if="currentState.equals(states.countdown)">
+                                <P><h1>The interview will start in</h1></p>
+                                <p><h1 class="f-5em">{{ countdownString}}</h1></p>
+
+                            </div>
+
+                            <!-- === SUBMITTING === -->
+                            <div id="state_submitting" class="text-center" ng-if="currentState.equals(states.submitting)">
+                                <P><h1>Submitting Interview</h1></p>
+                                <P><h3>This could take several minutes</h3></p>
+                            </div>
+
+                            <!-- === COMPLETE === -->
+                            <div id="state_complete" class="text-center" ng-if="currentState.equals(states.complete)">
+                                <P><h1>Interview Submitted Successfully!</h1></p>
+                                <P><h3>A copy of your submission is being downloaded for your records</h3></p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+
+<footer id="footer" data-ng-include="'views/footer.html'"></footer>

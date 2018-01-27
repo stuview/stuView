@@ -1,0 +1,78 @@
+<section id="main" style="background-color: lightskyblue">
+    <section id="content">
+
+        <div class="container">
+
+            <div class="block-header">
+                <h2>SSO Place Holder</h2>
+            </div>
+            <!--<div class="row">-->
+                <!--<div class="col-md-6">-->
+                    <!--<button data-ui-sref="student-home" data-ng-click="mactrl.sidebarStat($event)" class="btn bgm-green">Student Side</button>-->
+                <!--</div>-->
+
+                <!--<div class="col-md-6">-->
+                    <!--<button data-ui-sref="instructor-home" data-ng-click="mactrl.sidebarStat($event)" class="btn bgm-green">Instructor Side</button>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <div class="container login-content" data-ng-controller="loginCtrl as lctrl">
+                <!-- Login -->
+                <div class="card card-body card-padding" id="l-login" data-ng-class="{ 'toggled': lctrl.login === 1 }" data-ng-if="lctrl.login === 1">
+
+                    <form role="form" name="ssoFrom">
+
+                        <div class="input-group m-b-20">
+                            <span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
+                            <div class="fg-line">
+                                <input type="text" class="form-control" placeholder="SSO Username" ng-model="uname" required
+                                       minlength="1" ng-keypress="$event.keyCode == 13 && loginEnterBtn(userType)" id="unameLoginField">
+                            </div>
+                        </div>
+
+                        <div class="input-group m-b-20">
+                            <span class="input-group-addon"><i class="zmdi zmdi-male"></i></span>
+                            <div class="fg-line">
+                                <input type="text" class="form-control" placeholder="First Name" ng-model="fname" required
+                                       ng-keypress="$event.keyCode == 13 && loginEnterBtn(userType)">
+                            </div>
+                        </div>
+
+                        <div class="input-group m-b-20">
+                            <span class="input-group-addon"><i class="zmdi zmdi-male"></i></span>
+                            <div class="fg-line">
+                                <input type="text" class="form-control" placeholder="Last Name" ng-model="lname" required
+                                       ng-keypress="$event.keyCode == 13 && loginEnterBtn(userType)">
+                            </div>
+                        </div>
+
+
+                        <div class="input-group m-b-15">
+                            <p class="f-500 c-black m-b-15">User Type</p>
+                            <select id="userTypeSel" class="" ng-model="userType" ng-init="userType='Student'">
+                                <!--<option disabled selected value>&#45;&#45; Student or Instructor &#45;&#45;</option>-->
+                                <option value="Student">Student</option>
+                                <option value="Instructor">Instructor</option>
+                            </select>
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <a class="btn btn-login btn-success btn-float" ng-click="userLogin(uname, userType)" id="studentBtn"><i class="zmdi zmdi-arrow-forward"></i></a>
+                        <!--<a ng-if="userType =='Instructor'" class="btn btn-login btn-danger btn-float"-->
+                           <!--ng-click="inputInstructor(uname)" data-ui-sref="instructor-home" id="instructorBtn"><i class="zmdi zmdi-arrow-forward"></i></a>-->
+                        <!-- Button for registering users if we want to implement that
+                        <a class="btn bgm-amber btn-icon-text" style="margin-left: 55px; margin-top: 11px;" data-ui-sref="user-register" id="loginRegisterBtn">
+                            <i class="zmdi zmdi-check-all"></i>
+                             Register
+                        </a>
+                        -->
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+</section>

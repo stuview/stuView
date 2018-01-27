@@ -1,0 +1,34 @@
+<header id="header" data-current-skin={{mactrl.currentSkin}} data-ng-include="'views/header.html'" data-ng-controller="headerCtrl as hctrl"></header>
+
+<section id="main">
+    <aside id="sidebar" data-ng-include="'views/student/student-sidebar-left.html'" data-ng-class="{ 'toggled': mactrl.sidebarToggle.left === true }"></aside>
+
+    <section id="content" ng-controller="interviewPrecheckCtrl" ng-init="init()">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="card">
+                        <div class="card-header bgm-red">
+                            <div class="clearfix">
+                                <h2>PRECHECK : ARE YOU SURE YOU WANT TO TAKE THIS INTERVIEW?</h2>
+                            </div>
+                        </div>
+                        <div class="card-body card-padding">
+                            <h2><span class="zmdi zmdi-alert-triangle" style="color: red"></span><span style="color: red">Warning: </span> You will not be able to retake this interview after you start!</h2>
+                            <div>
+                                <br>
+                                <button data-ui-sref="student-interviewSession"  class="btn btn-success" ng-click="mactrl.sidebarStat($event);"><i class="zmdi zmdi-arrow-right"></i>
+                                    Take Interview</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</section>
+
+<footer id="footer" data-ng-include="'views/footer.html'"></footer>

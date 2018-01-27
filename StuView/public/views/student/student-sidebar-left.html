@@ -1,0 +1,44 @@
+<div class="sidebar-inner c-overflow">
+    <div class="profile-menu" ng-controller="studentSideBar">
+        <a href="" toggle-submenu>
+            <div class="profile-pic">
+                <img src="img/profile-pics/4.jpg" alt="">
+            </div>
+
+            <div class="profile-info">
+                {{ firstName }} {{ lastName }}
+                <i class="zmdi zmdi-caret-down"></i>
+            </div>
+        </a>
+
+        <ul class="main-menu">
+            <li>
+                <a href="" ng-click="logout()"><i class="zmdi zmdi-time-restore"></i> Logout</a>
+            </li>
+        </ul>
+    </div>
+
+    <ul class="main-menu">
+        
+        <li data-ui-sref-active="active">
+            <a data-ui-sref="student-home" data-ng-click="mactrl.sidebarStat($event)"><i class="zmdi zmdi-home"></i> Home</a>
+        </li>
+
+        <li data-ui-sref-active="active">
+            <a data-ui-sref="student-interviews" data-ng-click="mactrl.sidebarStat($event)"><i class="zmdi zmdi-graduation-cap"></i> Interviews</a>
+        </li>
+
+        <li data-ui-sref-active="active">
+            <a data-ui-sref="student-feedback" data-ng-click="mactrl.sidebarStat($event)"><i class="zmdi zmdi-comment-alt-text"></i> Feedback</a>
+        </li>
+
+        <li data-ui-sref-active="active">
+            <a data-ui-sref="student-recordPresentation" data-ng-click="mactrl.sidebarStat($event)" data-ng-class="{ 'active toggled': mactrl.$state.includes('rec')}"><i class="zmdi zmdi-videocam"></i> Preview Webcam</a>
+        </li>
+
+        <!--<li data-ui-sref-active="active">-->
+            <!--<a data-ui-sref="student-settings" data-ng-click="mactrl.sidebarStat($event)"><i class="zmdi zmdi-settings"></i> Settings</a>-->
+        <!--</li>-->
+
+    </ul>
+</div>

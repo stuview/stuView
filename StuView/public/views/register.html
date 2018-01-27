@@ -1,0 +1,68 @@
+<section id="main" style="background-color: lightskyblue">
+    <section id="content">
+        <section id="container">
+
+            <div class="block-header">
+                <h2>User Registration Placeholder</h2>
+            </div>
+
+            <div class="container" data-ng-controller="registerCtrl">
+
+                <div class="card card-body card-padding" id="registerCardDiv">
+
+                    <form role="form" name="registerForm">
+
+                        <div class="input-group m-b-20">
+                            <span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
+                            <div class="fg-line">
+                                <input type="text" class="form-control" placeholder="SSO Username" ng-model="regUname" required
+                                       id="unameRegField">
+                            </div>
+                        </div>
+
+                        <div class="input-group m-b-20">
+                            <span class="input-group-addon"><i class="zmdi zmdi-male"></i></span>
+                            <div class="fg-line">
+                                <input type="text" class="form-control" placeholder="First Name" ng-model="regFname" required>
+                            </div>
+                        </div>
+
+                        <div class="input-group m-b-20">
+                            <span class="input-group-addon"><i class="zmdi zmdi-male"></i></span>
+                            <div class="fg-line">
+                                <input type="text" class="form-control" placeholder="Last Name" ng-model="regLname" required>
+                            </div>
+                        </div>
+
+
+                        <div class="input-group m-b-15">
+                            <p class="f-500 c-black m-b-15">User Type</p>
+                            <select id="regUserTypeSel" ng-model="regUserType" ng-init="regUserType='Student'">
+                                <!--<option disabled selected value>&#45;&#45; Student or Instructor &#45;&#45;</option>-->
+                                <option value="Student">Student</option>
+                                <option value="Instructor">Instructor</option>
+                            </select>
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <a class="btn btn-float btn-login btn-success"
+                                ng-click="registerSubmitBtnClick(regUname, regFname, regLname, regUserType)"
+                                ng-if="regUserType='Student'" data-ui-sref="student-home">
+                            <i class="zmdi zmdi-arrow-forward"></i>
+                        </a>
+                        <a class="btn btn-float btn-login btn-danger"
+                           ng-click="registerSubmitBtnClick(regUname, regFname, regLname, regUserType)"
+                           ng-if="regUserType='Instructor'" data-ui-sref="instructor-home">
+                            <i class="zmdi zmdi-arrow-forward"></i>
+                        </a>
+                        <button class="btn btn-float btn-warning" data-ui-sref="sso-home" style="margin-left: 55px;"><i class="zmdi zmdi-close"></i></button>
+
+                    </form>
+                </div>
+
+            </div>
+
+        </section>
+    </section>
+</section>

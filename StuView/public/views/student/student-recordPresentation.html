@@ -1,0 +1,33 @@
+<header id="header" data-current-skin={{mactrl.currentSkin}} data-ng-include="'views/header.html'" data-ng-controller="headerCtrl as hctrl">
+</header>
+
+<section id="main">
+    <aside id="sidebar" data-ng-include="'views/student/student-sidebar-left.html'" data-ng-class="{ 'toggled': mactrl.sidebarToggle.left === true }"></aside>
+
+    <section id="content">
+        <div class="container" ng-controller="recordvideoCtrl">
+
+            <div class="block-header">
+                <h2>Presentation</h2>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header bgm-green">
+                            <div class="clearfix">
+                                <h2>Record a presentation</h2>
+                            </div>
+                            <!--<button class="btn bgm-lightblue btn-float waves-effect"><i class="zmdi zmdi-videocam"></i></button>-->
+                        </div>
+                        <div class="card-body card-padding" style="display: flex; justify-content: center; align-items: center">
+                                <video id="camPreview" style="width: 400px; height: 400px;"></video>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+
+<footer id="footer" data-ng-include="'views/footer.html'"></footer>

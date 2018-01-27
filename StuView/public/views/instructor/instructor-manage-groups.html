@@ -1,0 +1,68 @@
+<header id="header" data-current-skin={{mactrl.currentSkin}} data-ng-include="'views/header.html'" data-ng-controller="headerCtrl as hctrl"></header>
+
+<section id="main">
+    <aside id="sidebar" data-ng-include="'views/instructor/instructor-sidebar-left.html'" data-ng-class="{ 'toggled': mactrl.sidebarToggle.left === true }"></aside>
+
+    <section id="content">
+
+        <div class="container">
+
+            <div class="block-header">
+                <h2>Groups</h2>
+            </div>
+
+            <div class="card" ng-controller="tableCtrl as tctrl" ng-init="loadGroups()">
+                <div class="card-header bgm-green">
+                    <h2> Manage Groups</h2>
+                    <br>
+                    <form class="col-md-6" name="newGroupForm"><input class="form-control" type="text" ng-model="newGroup" placeholder="New Group" required/></form>
+                    <button class="btn btn-primary" data-ng-click="addGroup(newGroup); newGroup=''" ng-disabled="newGroupForm.$invalid">Add Group</button>
+                </div>
+
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table ng-table="tctrl.tableEdit" class="table table-striped table-vmiddle">
+                            <tr ng-repeat=" w in classes" ng-class="{ 'active': w.$edit, 'active': w.$viewUsers }">
+                                <td data-title="'Name'" class="col-md-2">
+                                    <span ng-if="!w.$edit">{{ w.group_title }}</span>
+                                    <!--<span>{{ w.class_id }}</span>-->
+                                    <div ng-if="w.$edit"><input class="form-control" type="text" ng-model="w.group_title"/></div>
+                                </td>
+                                <td data-title="'Edit'">
+                                    <button type="button" class="btn btn-default" ng-if="!w.$edit" ng-click="w.$edit = true"><i class="zmdi zmdi-edit"></i></button>
+                                    <button type="button" class="btn btn-success" ng-if="w.$edit" ng-click="updateGroup(w.group_title, w.class_id); w.$edit = false"><i class="zmdi zmdi-check"></i></button>
+                                </td>
+                                <td data-title="'Remove'">
+                                    <button class="btn btn-danger zmdi zmdi-minus" ng-click="deleteGroup(w.class_id);"></button>
+                                </td>
+                                <td data-title="'Add/Remove Users'" class="col-md-4">
+                                    <form name="selectStudentForm" data-ng-submit="addUserToGroup(chosenStudent, w.class_id, $index); w.$chosenStudent='undefined'" ng-init="getStudents()">
+                                        <!--<input class="form-control" type="text" ng-model="w.$user"/>-->
+                                        <select data-placeholder="Select a student..." class="form-control w-100" ng-init="w.$chosenStudent = ''" ng-model="w.$chosenStudent" required>
+                                            <option disabled selected value>-- select a student --</option>
+                                            <option value="{{student.student_uname}}" ng-repeat="student in allStudents | orderBy: 'lname'">{{student.lname}}, {{student.fname}}</option>
+                                        </select>
+                                    </form>
+                                </td>
+                                <td data-title="'Add'">
+                                    <button class="btn btn-success zmdi zmdi-plus" ng-click="addUserToGroup(w.$chosenStudent, w.class_id, $index); w.$chosenStudent= ''" ng-disabled="selectStudentForm.$invalid"></button>
+                                </td>
+                                <td data-title="'Remove'">
+                                    <button class="btn btn-danger zmdi zmdi-minus" ng-click="removeUserFromGroup(w.$chosenStudent, w.class_id, $index); w.$chosenStudent= ''" ng-disabled="selectStudentForm.$invalid"></button>
+                                </td>
+                                <td data-title="'Current Users'" ng-init="getStudentsFromID(w.class_id, $index)">
+                                    <span data-ng-repeat="group in studentData[$index]">
+                                            {{ group.fname }} {{group.lname}}{{$last ? '' : ', '}}<span ng-show="$index < group.length-1">;</span>
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</section>
+
+<footer id="footer" data-ng-include="'views/footer.html'"></footer>

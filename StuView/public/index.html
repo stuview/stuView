@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+    <!--[if IE 9 ]><html class="ie9" ng-app="materialAdmin" ng-controller="materialadminCtrl as mactrl"><![endif]-->
+    <![if IE 9 ]><html ng-app="materialAdmin" ng-controller="materialadminCtrl as mactrl"><![endif]>
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>StuView</title>
+
+        <!-- Utilities -->
+        <script src="js/utilities.js"></script>
+
+        <!-- Audio Recording -->
+        <script src="js/recording_audio/audioRecorder.js"></script>
+
+        <!-- Canvas Recording -->
+        <script src="js/recording_dom/screenshot.js"></script>
+        <script src="js/recording_dom/whammy.js"></script>
+        <script src="js/recording_dom/domRecorder.js"></script>
+
+        <!-- Vendor CSS -->
+        <link href="vendors/bower_components/animate.css/animate.min.css" rel="stylesheet">
+        <link href="vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css" rel="stylesheet">
+        <link href="vendors/bower_components/bootstrap-sweetalert/lib/sweet-alert.css" rel="stylesheet">
+        <link href="vendors/bower_components/angular-loading-bar/src/loading-bar.css" rel="stylesheet">
+
+        <!-- CSS -->
+        <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+        <link href="css/app.min.1.css" rel="stylesheet" id="app-level">
+        <link href="css/app.min.2.css" rel="stylesheet">
+        <link href="css/main.css" rel="stylesheet">
+
+        <link rel="stylesheet" href="css/jquery-ui.css">
+
+    </head>
+
+    <body data-ng-class="{ 'sw-toggled': mactrl.layoutType === '1'}">
+        <!--This is the location that makes our website a single page web-app-->
+        <data ui-view></data>
+
+        <!-- Core -->
+        <script src="vendors/bower_components/jquery/dist/jquery.min.js"></script>
+
+        <!-- Student Interview Media -->
+        <!--<script src="components/wysihtml5x/dist/wysihtml5x-toolbar.min.js"></script>-->
+        <script src="components/jquery/dist/jquery.min.js"></script>
+        <script src="components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="components/handlebars/handlebars.runtime.min.js"></script>
+        <!--<script src="dist/bootstrap3-wysihtml5.min.js"></script>-->
+
+        <!-- Angular -->
+        <script src="vendors/bower_components/angular/angular.js"></script>
+        <script src="vendors/bower_components/angular-animate/angular-animate.min.js"></script>
+        <script src="vendors/bower_components/angular-resource/angular-resource.min.js"></script>
+        
+        <!-- Angular Modules -->
+        <script src="vendors/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+        <script src="vendors/bower_components/angular-loading-bar/src/loading-bar.js"></script>
+        <script src="vendors/bower_components/oclazyload/dist/ocLazyLoad.min.js"></script>
+        <script src="vendors/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+
+        <!-- Common Vendors -->
+        <script src="vendors/bower_components/bootstrap-sweetalert/lib/sweet-alert.min.js"></script>
+        <script src="vendors/bower_components/Waves/dist/waves.min.js"></script>
+        <script src="vendors/bootstrap-growl/bootstrap-growl.min.js"></script>
+        <script src="vendors/bower_components/ng-table/dist/ng-table.min.js"></script>
+
+        <!-- Placeholder for IE9 -->
+        <!--[if IE 9 ]>
+            <script src="vendors/bower_components/jquery-placeholder/jquery.placeholder.min.js"></script>
+        <![endif]-->
+
+        <!-- Using below vendors in order to avoid misloading on resolve -->
+        <script src="vendors/bower_components/flot/jquery.flot.js"></script>
+        <script src="vendors/bower_components/flot.curvedlines/curvedLines.js"></script>
+        <script src="vendors/bower_components/flot/jquery.flot.resize.js"></script>
+        <script src="vendors/bower_components/moment/min/moment.min.js"></script>
+        <script src="vendors/bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
+        <script src="vendors/bower_components/flot-orderBars/js/jquery.flot.orderBars.js"></script>
+        <script src="vendors/bower_components/flot/jquery.flot.pie.js"></script>
+        <script src="vendors/bower_components/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
+        <script src="vendors/bower_components/angular-nouislider/src/nouislider.min.js"></script>
+        
+        <!-- App level -->
+        <script src="js/app.js"></script>
+        <script src="js/config.js"></script>
+        <script src="js/controllers/main.js"></script>
+        <script src="js/services/services.js"></script>
+        <script src="js/services/loginService.js"></script>
+        <script src="js/services/sessionService.js"></script>
+        <script src="js/templates.js"></script>
+        <script src="js/controllers/ui-bootstrap.js"></script>
+        <script src="js/controllers/table.js"></script>
+        <script src="js/controllers/loginCtrl.js"></script>
+        <script src="js/controllers/userRegisterCtrl.js"></script>
+        <script src="js/controllers/interviewSessionCtrl.js"></script>
+        <script src="js/controllers/interviewPrecheckCtrl.js"></script>
+        <script src="js/controllers/manageInterviewsCtrl.js"></script>
+        <script src="js/controllers/feedbackFormCtrl.js"></script>
+
+
+        <!-- Template Modules -->
+        <script src="js/modules/template.js"></script>
+        <script src="js/modules/ui.js"></script>
+        <script src="js/modules/charts/flot.js"></script>
+        <script src="js/modules/charts/other-charts.js"></script>
+        <script src="js/modules/form.js"></script>
+        <script src="js/modules/media.js"></script>
+        <script src="js/modules/components.js"></script>
+        <script src="js/modules/calendar.js"></script>
+        <script src="js/modules/demo.js"></script>
+    </body>
+</html>
+

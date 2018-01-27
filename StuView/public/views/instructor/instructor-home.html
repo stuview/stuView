@@ -1,0 +1,100 @@
+<header id="header" data-current-skin={{mactrl.currentSkin}} data-ng-include="'views/header.html'" data-ng-controller="headerCtrl as hctrl"></header>
+
+<section id="main">
+    <aside id="sidebar" data-ng-include="'views/instructor/instructor-sidebar-left.html'" data-ng-class="{ 'toggled': mactrl.sidebarToggle.left === true }"></aside>
+
+    <section id="content">
+
+        <div class="container">
+
+            <div class="block-header">
+                <h2>Dashboard</h2>
+            </div>
+
+            <div class="card" ng-hide="dismissed">
+                <div class="bgm-gray">
+                    <div class="col-lg-12">
+                        <!--<div class="alert alert-dismissable bgm-gray" style="color: #ffffff">-->
+                            <!--<button type="button" class="close" ng-click="dismissed = true" data-dismiss="alert" aria-hidden="true">&times;</button>-->
+                            <!--<i class="fa fa-info-circle"></i>  You have <strong>50 new</strong> interviews to review!-->
+                        <!--</div>-->
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header bgm-indigo">
+                            <div class="clearfix">
+                                <div class="fa fa-comments fa-5x fa-inverse"></div>
+                                <h2>Create Interview</h2>
+                            </div>
+                            <button data-ui-sref="create-interview" data-ng-click="mactrl.sidebarStat($event)" class="btn bgm-lightblue btn-float waves-effect"><i class="zmdi zmdi-arrow-right"></i></button>
+                        </div>
+                        <div class="card-body card-padding">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header bgm-teal">
+                            <div class="clearfix">
+                                <div class="fa fa-list-alt fa-5x fa-inverse"></div>
+                                <h2>Manage Interviews</h2>
+                            </div>
+                            <button data-ui-sref="manage-interviews" data-ng-click="mactrl.sidebarStat($event)" class="btn bgm-lightblue btn-float waves-effect" ng-click=""><i class="zmdi zmdi-arrow-right"></i></button>
+                        </div>
+                        <div class="card-body card-padding">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header bgm-amber">
+                            <div class="clearfix">
+                                <div class="fa fa-pencil-square-o fa-5x fa-inverse"></div>
+                                <h2>Interview Feedback</h2>
+                            </div>
+                            <button data-ui-sref="instructor-feedback" data-ng-click="mactrl.sidebarStat($event)" class="btn bgm-lightblue btn-float waves-effect"><i class="zmdi zmdi-arrow-right"></i></button>
+                        </div>
+                        <div class="card-body card-padding">
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="col-md-6">-->
+                    <!--<div class="card">-->
+                        <!--<div class="card-header bgm-red">-->
+                            <!--<div class="clearfix">-->
+                                <!--<div class="fa fa-video-camera fa-5x fa-inverse"></div>-->
+                                <!--<h2>Record Practice Presentation</h2>-->
+                            <!--</div>-->
+                            <!--<button data-ui-sref="instructor-reviewPresentation" data-ng-click="mactrl.sidebarStat($event)" class="btn bgm-lightblue btn-float waves-effect"><i class="zmdi zmdi-arrow-right"></i></button>-->
+                        <!--</div>-->
+                        <!--<div class="card-body card-padding">-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header bgm-green">
+                            <div class="clearfix">
+                                <div class="zmdi zmdi-accounts fa-5x fa-inverse"></div>
+                                <h2>Manage Groups</h2>
+                            </div>
+                            <button data-ui-sref="manage-groups" data-ng-click="mactrl.sidebarStat($event)" class="btn bgm-lightblue btn-float waves-effect" ng-click=""><i class="zmdi zmdi-arrow-right"></i></button>
+                        </div>
+                        <div class="card-body card-padding">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+    </section>
+</section>
+
+<footer id="footer" data-ng-include="'views/footer.html'"></footer>

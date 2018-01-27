@@ -1,0 +1,49 @@
+<header id="header" data-current-skin={{mactrl.currentSkin}} data-ng-include="'views/header.html'" data-ng-controller="headerCtrl as hctrl"></header>
+
+<section id="main">
+	<aside id="sidebar" data-ng-include="'views/instructor/instructor-sidebar-left.html'" data-ng-class="{ 'toggled': mactrl.sidebarToggle.left === true }"></aside>
+
+	<section id="content">
+
+		<div class="container" ng-controller="feedbackFormCtrl" ng-init="initForm()">
+			<div class="block-header">
+				<h2>{{ title }}<br>Submitted by: {{ student_fname }} {{ student_lname }}</h2>
+			</div>
+
+			<!-- Embedded video code goes here -->
+
+			<div class="row">
+				<div class="col-md-12" >
+					<div class="card"  ng-repeat="(qid, question) in questions">
+						<div class="card-header bgm-indigo">
+							<div class="clearfix">
+								<h2><span class="col-md-8">{{ question }}</span></h2>
+							</div>
+						</div>
+						<div class="card-body card-padding" ng-init="initCriteria(qid)">
+							<div class="form-group">
+								<div class="fg-line">
+									<span>Criteria:<br></span>
+									<span ng-repeat="c in criteria[qid]" style="padding-left: 2em;" data-id="{{rubric}}" class="criterion">{{ c }}<br></span>
+									<br>
+									<span>Submitted Answer: <br></span>
+									<textarea rows="5" class="form-control disabled" style="background-image: linear-gradient(to bottom, #d1f1d1, #c1fdc1, #d1f1d1)">{{ answers[qid] }}</textarea>
+									<hr>
+									<textarea class="form-control feedback-area" rows="5" placeholder="Comments..." data-id="{{qid}}"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card">
+						<div class="col-sm-8">
+							<button class="btn btn-success btn-icon-text waves-effect" ng-click="submitFeedback()"><i class="zmdi zmdi-check-all"></i> Submit</button>
+							<button class="btn btn-danger btn-icon-text waves-effect" ng-click="cancelFeedback()"><i class="zmdi zmdi-close"></i> Cancel</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</section>
+
+<footer id="footer" data-ng-include="'views/footer.html'"></footer>

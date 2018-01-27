@@ -1,0 +1,40 @@
+<header id="header" data-current-skin={{mactrl.currentSkin}} data-ng-include="'views/header.html'" data-ng-controller="headerCtrl as hctrl"></header>
+
+<section id="main">
+    <aside id="sidebar" data-ng-include="'views/instructor/instructor-sidebar-left.html'" data-ng-class="{ 'toggled': mactrl.sidebarToggle.left === true }"></aside>
+
+    <section id="content">
+        <div class="container">
+            <div class="container">
+                <div class="card">
+                    <div class="card-header bgm-teal">
+                        <div class="clearfix">
+                            <h2>About StuView</h2>
+                        </div>
+                    </div>
+                    <div class="card-body card-padding">
+                        <div class="row">
+                                <div class="caption">
+                                    <p>
+                                        StuView is an online practice interview application designed to assist students in preparing for real-world interviews.
+                                        The main goal of StuView is to be able to simulate not only HR question interviews, but also technical question interviews.
+                                    </p>
+                                    <p>
+                                        Instructors can create two types of interviews. One type is practice interviews, which can be taken as many times as a
+                                        student would like, and will not be uploaded and sent to an industry assessor for review, but will be available for
+                                        download to the student to review themselves. The second type is a reviewed interview, which will be uploaded and sent
+                                        to an industry assessor for review and feedback when the student has completed the interview, or the time has exipired,
+                                        whichever comes first. Industry assessors will submit feedback on the interview, then students will be able to view that
+                                        feedback to learn what they did well or what they can improve on.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+
+<footer id="footer" data-ng-include="'views/footer.html'"></footer>

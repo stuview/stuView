@@ -1,0 +1,126 @@
+<header id="header" data-current-skin={{mactrl.currentSkin}} data-ng-include="'views/header.html'" data-ng-controller="headerCtrl as hctrl"></header>
+
+<section id="main">
+    <aside id="sidebar" data-ng-include="'views/instructor/instructor-sidebar-left.html'" data-ng-class="{ 'toggled': mactrl.sidebarToggle.left === true }"></aside>
+
+    <section id="content">
+
+        <div class="container">
+
+            <div class="block-header">
+                <h2>Feedback</h2>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12" >
+                    <div class="card">
+                        <div class="card-header bgm-amber">
+                            <div class="clearfix">
+                                <h2><span class="col-md-8">{{ "Interview Submissions" }} </span></h2>
+                            </div>
+                        </div>
+
+                        <div class="card-body card-padding">
+                            <div id="data-table-basic-header" class="bootgrid-header container-fluid">
+                                <div class="row">
+                                    <div class="col-sm-4 actionBar">
+                                        <div class="search form-group">
+                                            <div class="input-group ">
+                                                <span class="input-group-addon">
+                                                    <i class="zmdi zmdi-search"></i>
+                                                </span>
+                                                <input type="text" class="search-field form-control" placeholder="Search" ng-model="searchSubmissions">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div ng-controller="studentTableCtrl as tctrl">
+                                <div class="card-body table-responsive" ng-init="getAllSubmissions()">
+                                    <table id="feedbackTable" class="table">
+                                        <thead>
+                                            <tr>
+                                                <td>
+                                                    <!--not sure if this is the proper thing to put in the href but it seems to work-->
+                                                    <a href = "#/provide-feedback" ng-click = "sortType = 'lname'; sortReverse = !sortReverse">
+                                                        Student Name
+                                                        <span ng-show="sortType == 'lname' && !sortReverse" class="zmdi zmdi-caret-down"></span>
+                                                        <span ng-show="sortType == 'lname' && sortReverse" class="zmdi zmdi-caret-up"></span>
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <a href = "#/provide-feedback" ng-click = "sortType = 'interview_title'; sortReverse = !sortReverse">
+                                                        Interview Title
+                                                        <span ng-show="sortType == 'interview_title' && !sortReverse" class="zmdi zmdi-caret-down"></span>
+                                                        <span ng-show="sortType == 'interview_title' && sortReverse" class="zmdi zmdi-caret-up"></span>
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <!--<a href = "#/provide-feedback" ng-click = "sortType = ''; sortReverse = !sortReverse">-->
+                                                        Submission Date
+                                                    <!--<span ng-show="sortType == 'name' && !sortReverse" class="zmdi zmdi-caret-down"></span>-->
+                                                    <!--<span ng-show="sortType == 'name' && sortReverse" class="zmdi zmdi-caret-down"></span>-->
+                                                    <!--</a>-->
+                                                </td>
+                                                <td>
+                                                    <a href = "#/provide-feedback" ng-click = "sortType = 'groups'; sortReverse = !sortReverse">
+                                                        Groups
+                                                        <span ng-show="sortType == 'groups' && !sortReverse" class="zmdi zmdi-caret-down"></span>
+                                                        <span ng-show="sortType == 'groups' && sortReverse" class="zmdi zmdi-caret-down"></span>
+                                                    </a>
+                                                </td>
+                                                <td>
+
+                                                      Video Link
+
+                                                </td>
+                                                <td>
+                                                    <!--<a href = "#/provide-feedback" ng-click = "sortType = ''; sortReverse = !sortReverse">-->
+                                                        Sent
+                                                    <!--<span ng-show="sortType == 'name' && !sortReverse" class="zmdi zmdi-caret-down"></span>-->
+                                                    <!--<span ng-show="sortType == 'name' && sortReverse" class="zmdi zmdi-caret-down"></span>-->
+                                                    <!--</a>-->
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="w in submissionData | orderBy:sortType:sortReverse | filter:searchSubmissions" ng-class="{ 'bgm-amber':w.submission_id == selected }" ng-click="setSelected(w.submission_id)">
+                                                <td class="col-md-3">
+                                                    <span>{{ w.fname }}</span> <span>{{ w.lname }}</span>
+                                                </td>
+                                                <td class="col-md-3">
+                                                    <span>{{ w.title }}</span>
+                                                </td>
+                                                <td class="col-md-3">
+                                                    <span>{{  }}</span>
+                                                </td>
+                                                <td class="col-md-3">
+                                                    <span data-ng-repeat="group in w.groups">
+                                                        {{ group }}{{$last ? '' : ', '}}
+                                                    </span>
+                                                </td>
+                                                <td class="col-md-3">
+                                                    <a ng-href="{{ w.answer_media }}", target="_blank">{{ w.answer_media }}</a>
+
+                                                </td>
+                                                <th class="col-md-3">
+                                                    <span><i class="zmdi zmdi-check"></i></span>
+                                                </th>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <br>
+                                <button class="btn btn-success" data-ui-sref="feedback-form" ng-if="w.submission_id != selected" ng-click="setSubmission()">Provide Feedback</button>
+                                <button class="btn btn-success" data-ui-sref="share-submission" ng-if="w.submission_id != selected" ng-click="setSubmission()">Share Submission</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+
+<footer id="footer" data-ng-include="'views/footer.html'"></footer>

@@ -1,0 +1,49 @@
+<header id="header" data-current-skin={{mactrl.currentSkin}} data-ng-include="'views/header.html'" data-ng-controller="headerCtrl as hctrl"></header>
+
+<section id="main">
+    <aside id="sidebar" data-ng-include="'views/instructor/instructor-sidebar-left.html'" data-ng-class="{ 'toggled': mactrl.sidebarToggle.left === true }"></aside>
+
+    <section id="content" ng-controller="instructorShareSubmissionCtrl">
+
+        <div class="container">
+
+            <div class="block-header">
+                <h2>Feedback</h2>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12" >
+                    <div class="card">
+                        <div class="card-header bgm-amber">
+                            <div class="clearfix">
+                                <h2><span class="col-md-8">Share Submission</span></h2>
+                            </div>
+                        </div>
+                        <div class="card-body card-padding">
+                            <label>Student</label>
+                            <br>
+                            {{studentName}}
+                            <br>
+                            <br>
+                            <label>Interview</label>
+                            <br>
+                            {{interviewTitle}}
+                            <br>
+                            <br>
+                            <form role="form" name="emailForm">
+                                <div class="form-group fg-line">
+                                    <label>Assessor's Email</label>
+                                    <input type="text" class="form-control input-sm" id="assessorsEmail" placeholder="Enter assessor's email" ng-model='assessorEmail' name="email" required ng-minlength="3">
+                                </div>
+                            </form>
+                            <br>
+                            <button class="btn btn-success" data-ui-sref="instructor-feedback" ng-if="emailForm.email.$valid" ng-click="sendFeedbackEmail()">Send Submission</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+
+<footer id="footer" data-ng-include="'views/footer.html'"></footer>
